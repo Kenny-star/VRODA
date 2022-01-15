@@ -8,7 +8,7 @@ import java.util.*;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-    List<Product> findProductByTitle(String title);
+    List<Product> findProductByTitleContaining(String title);
 
     Optional<Product> findProductByProductId(UUID product_id);
 
