@@ -23,4 +23,6 @@ public interface ProductService {
     
     public ProductDTO updateProduct(ProductDTO product);
 
+    public List<Product> addToCart(ProductIdLessDTO product);
+
 }

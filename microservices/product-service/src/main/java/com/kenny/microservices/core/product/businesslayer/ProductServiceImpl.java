@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -101,5 +102,25 @@ public class ProductServiceImpl implements ProductService {
 //        catch (Exception e){
 //            throw new NotFoundException("Product of title " + title+" could not be found");
 //        }
+    }
+
+    @Override
+    public List<Product> addToCart(ProductIdLessDTO product){
+
+        try{
+            Product productEntity = mapper.ProductIdLessDtoToEntity(product);
+            log.info("Calling product repo to create a product with productCategory: {}", product.getCategoryId());
+            Product createdEntity = productRepository.save(productEntity);
+
+            List<Product> productCartList = new ArrayList<>();
+            productCartList.add(productEntity);
+
+            return (List<Product>) mapper.EntityToModelDTO(createdEntity);
+
+        }
+        catch(DuplicateKeyException dke){
+            throw new InvalidInputException("Duplicate productId.", dke);
+        }
+
     }
 }

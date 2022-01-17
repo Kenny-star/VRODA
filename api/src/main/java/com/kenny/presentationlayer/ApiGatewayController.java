@@ -66,5 +66,14 @@ public class ApiGatewayController {
         return productServiceClient.getProductByTitle(title);
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(
+            value = "addToCart",
+            consumes = "application/json",
+            produces = "application/json"
+    )
+    Flux<Product> addToCart(@RequestBody Product product) {
+        return productServiceClient.addToCart(product);
+    }
 
 }
