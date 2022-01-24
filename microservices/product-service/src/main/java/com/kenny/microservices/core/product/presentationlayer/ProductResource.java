@@ -71,4 +71,11 @@ public class ProductResource {
         log.info("Getting product by title: {}", title);
         return productService.getProductByTitle(title);
     }
+
+//    @CrossOrigin(origins = "*")
+//    @PostMapping( "addToCart")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ProductDTO addToCart(@Valid @RequestBody ProductIdLessDTO product) {
+//        return productService.addToCart(product);
+//    }
 }

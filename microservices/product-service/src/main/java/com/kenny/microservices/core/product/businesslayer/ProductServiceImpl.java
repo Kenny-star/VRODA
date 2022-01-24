@@ -1,9 +1,6 @@
 package com.kenny.microservices.core.product.businesslayer;
 
-import com.kenny.microservices.core.product.datalayer.Product;
-import com.kenny.microservices.core.product.datalayer.ProductDTO;
-import com.kenny.microservices.core.product.datalayer.ProductIdLessDTO;
-import com.kenny.microservices.core.product.datalayer.ProductRepository;
+import com.kenny.microservices.core.product.datalayer.*;
 import com.kenny.microservices.core.product.utils.exceptions.InvalidInputException;
 import com.kenny.microservices.core.product.utils.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -104,23 +100,26 @@ public class ProductServiceImpl implements ProductService {
 //        }
     }
 
-    @Override
-    public List<Product> addToCart(ProductIdLessDTO product){
+//    @Override
+//    public ProductDTO addToCart(ProductIdLessDTO product){
+//
+//        try{
+//            Product productEntity = mapper.ProductIdLessDtoToEntity(product);
+//            log.info("Calling product repo to create a product with productCategory: {}", product.getCategoryId());
+//            Product createdEntity = cartRepository.save(productEntity);
+//
+//            return mapper.EntityToModelDTO(createdEntity);
+//
+////            List<Product> productCartList = new ArrayList<>();
+////            productCartList.add(productEntity);
+////
+////            return productCartList;
+//
+//        }
+//        catch(DuplicateKeyException dke){
+//            throw new InvalidInputException("Duplicate productId.", dke);
+//        }
+//
+//    }
 
-        try{
-            Product productEntity = mapper.ProductIdLessDtoToEntity(product);
-            log.info("Calling product repo to create a product with productCategory: {}", product.getCategoryId());
-            Product createdEntity = productRepository.save(productEntity);
-
-            List<Product> productCartList = new ArrayList<>();
-            productCartList.add(productEntity);
-
-            return (List<Product>) mapper.EntityToModelDTO(createdEntity);
-
-        }
-        catch(DuplicateKeyException dke){
-            throw new InvalidInputException("Duplicate productId.", dke);
-        }
-
-    }
 }
