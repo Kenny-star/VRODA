@@ -52,4 +52,24 @@ public class CartServiceClient {
                 .retrieve()
                 .bodyToMono(Void.class);
     }
+
+    public Mono<Cart> incrementQuantity(Cart cart){
+        return webClientBuilder.build()
+                .put()
+                .uri(hostname + "/cart/increment/{product_id}", cart.getProductId())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(cart), Cart.class)
+                .retrieve()
+                .bodyToMono(Cart.class);
+    }
+
+    public Mono<Cart> decrementQuantity(Cart cart){
+        return webClientBuilder.build()
+                .put()
+                .uri(hostname + "/cart/decrement/{product_id}", cart.getProductId())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(cart), Cart.class)
+                .retrieve()
+                .bodyToMono(Cart.class);
+    }
 }

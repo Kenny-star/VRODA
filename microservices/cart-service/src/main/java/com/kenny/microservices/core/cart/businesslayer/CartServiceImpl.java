@@ -5,6 +5,7 @@ import com.kenny.microservices.core.cart.datalayer.CartDTO;
 import com.kenny.microservices.core.cart.datalayer.CartIdLessDTO;
 import com.kenny.microservices.core.cart.datalayer.CartRepository;
 import com.kenny.microservices.core.cart.utils.exceptions.InvalidInputException;
+import com.kenny.microservices.core.cart.utils.exceptions.NotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 
 
@@ -70,6 +71,28 @@ public class CartServiceImpl implements CartService{
         if(product.getProductId() != null)
             cartRepository.delete(product);
         LOG.debug("Product of ID: " + product_id + "has been deleted.");
+    }
+
+    @Override
+    public CartDTO incrementQuantity(CartDTO updatedProduct){
+        Cart productEntity = mapper.CartDTOToEntity(updatedProduct);
+        Optional<Cart> product = cartRepository.findProductByProductId(UUID.fromString(updatedProduct.getProductId()));
+        productEntity.setId(product.get().getId());
+        productEntity.setQuantity(product.get().getQuantity() + 1);
+        log.info("Updating cart product with productId: {}", product.get().getProductId());
+        Cart updatedProductEntity = cartRepository.save(productEntity);
+        return mapper.EntityToModelDTO(updatedProductEntity);
+    }
+
+    @Override
+    public CartDTO decrementQuantity(CartDTO updatedProduct){
+        Cart productEntity = mapper.CartDTOToEntity(updatedProduct);
+        Optional<Cart> product = cartRepository.findProductByProductId(UUID.fromString(updatedProduct.getProductId()));
+        productEntity.setId(product.get().getId());
+        productEntity.setQuantity(product.get().getQuantity() - 1);
+        log.info("Updating cart product with productId: {}", product.get().getProductId());
+        Cart updatedProductEntity = cartRepository.save(productEntity);
+        return mapper.EntityToModelDTO(updatedProductEntity);
     }
 
 }

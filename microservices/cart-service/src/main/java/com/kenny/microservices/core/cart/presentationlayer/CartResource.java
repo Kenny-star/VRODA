@@ -2,6 +2,7 @@ package com.kenny.microservices.core.cart.presentationlayer;
 
 
 import com.kenny.microservices.core.cart.businesslayer.CartService;
+import com.kenny.microservices.core.cart.datalayer.Cart;
 import com.kenny.microservices.core.cart.datalayer.CartDTO;
 import com.kenny.microservices.core.cart.datalayer.CartIdLessDTO;
 import io.micrometer.core.annotation.Timed;
@@ -43,4 +44,26 @@ public class CartResource {
     public void deleteCart(@PathVariable("product_id") String product_id){
         cartService.deleteCart(product_id);
     }
+
+
+    @CrossOrigin(origins = "*")
+    @PutMapping(value = "/cart/increment/{product_id}",
+            consumes = "application/json",
+            produces = "application/json")
+    public CartDTO incrementQuantity(@PathVariable("product_id") String product_id, @Valid @RequestBody CartDTO product){
+        product.setProductId(product_id);
+        log.info("Updating product {}", product);
+        return cartService.incrementQuantity(product);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping(value = "/cart/decrement/{product_id}",
+            consumes = "application/json",
+            produces = "application/json")
+    public CartDTO decrementQuantity(@PathVariable("product_id") String product_id, @Valid @RequestBody CartDTO product){
+        product.setProductId(product_id);
+        log.info("Updating product {}", product);
+        return cartService.decrementQuantity(product);
+    }
+
 }

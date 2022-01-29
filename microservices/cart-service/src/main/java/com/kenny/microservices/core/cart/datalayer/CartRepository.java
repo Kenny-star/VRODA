@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface CartRepository extends JpaRepository<Cart, String> {
 
     Optional<Cart> findProductByProductId(UUID product_id);
+
 }

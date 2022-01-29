@@ -92,4 +92,26 @@ public class ApiGatewayController {
         return cartServiceClient.deleteCart(product_id);
     }
 
+    @CrossOrigin(origins = "*")
+    @PutMapping(
+            value = "/cart/increment/{product_id}",
+            consumes = "application/json",
+            produces = "application/json"
+    )
+    public Mono<Cart> incrementQuantity(@PathVariable String product_id, @RequestBody Cart cart){
+        cart.setProductId(product_id);
+        return cartServiceClient.incrementQuantity(cart);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping(
+            value = "/cart/decrement/{product_id}",
+            consumes = "application/json",
+            produces = "application/json"
+    )
+    public Mono<Cart> decrementQuantity(@PathVariable String product_id, @RequestBody Cart cart){
+        cart.setProductId(product_id);
+        return cartServiceClient.decrementQuantity(cart);
+    }
+
 }
