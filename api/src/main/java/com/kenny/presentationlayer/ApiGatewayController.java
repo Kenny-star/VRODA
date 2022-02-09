@@ -1,6 +1,5 @@
 package com.kenny.presentationlayer;
 
-import com.kenny.domainclientlayer.AuthServiceClient;
 import com.kenny.domainclientlayer.ProductServiceClient;
 import com.kenny.dtos.Product;
 import com.kenny.dtos.User;
@@ -20,44 +19,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/gateway")
 public class ApiGatewayController {
     private final ProductServiceClient productServiceClient;
-    private final AuthServiceClient authServiceClient;
-
-
-    @CrossOrigin(origins = "*")
-    @PostMapping(
-            value = "signin",
-            consumes = "application/json",
-            produces = "application/json"
-    )
-    public Mono<ResponseEntity<String>> signinUser(@RequestBody UserDetails userDetails) {
-        log.info("loging user ");
-        return authServiceClient.signinUser(userDetails);
-
-    }
-
-    @CrossOrigin(origins = "*")
-    @PostMapping(
-            value = "hello",
-            consumes = "application/json",
-            produces = "application/json"
-    )
-    public Mono<ResponseEntity<String>> hello(@RequestBody UserDetails userDetails) {
-        log.info("hello user ");
-        return authServiceClient.hello(userDetails);
-
-    }
-
-    @CrossOrigin(origins = "*")
-    @PostMapping(
-            value = "signup",
-            consumes = "application/json",
-            produces = "application/json"
-    )
-    public Mono<ResponseEntity<String>> createUser(@RequestBody UserDetailsAuth userDetailsAuth) {
-        log.info("registering user ");
-        return authServiceClient.signupUser(userDetailsAuth);
-
-    }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "products")
@@ -66,12 +27,6 @@ public class ApiGatewayController {
         return productServiceClient.getAllProducts();
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "users")
-    public Flux<User> getAllUser() {
-        log.info("Getting products ");
-        return authServiceClient.getAllUsers();
-    }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "products/{product_id}",

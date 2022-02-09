@@ -8,15 +8,6 @@ services:
       mysql30:
         condition: service_healthy
 
-  auth:
-    build: microservices/auth-service
-    hostname: auth
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      mysql31:
-        condition: service_healthy
-
   api:
     build: api
     ports:
@@ -25,7 +16,8 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - product
-      - auth
+      mysql31:
+          condition: service_healthy
 
   mysql30:
     image: mysql:5.7

@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
     id "io.freefair.lombok" version "6.0.0-m2"
+    id 'java-library'
     id "com.bertramlabs.plugins.asset-pipeline" version "2.4.2"
 }
 
@@ -13,7 +14,9 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral()
 }
-
+ext {
+    mapstructVersion = "1.4.1.Final"
+}
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
@@ -21,6 +24,13 @@ dependencies {
 
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('mysql:mysql-connector-java')
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    compile group: 'org.datanucleus', name: 'javax.persistence', version: '2.2.0-m3'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // https://mvnrepository.com/artifact/org.webjars/bootstrap
@@ -48,11 +58,20 @@ dependencies {
 
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.3.RELEASE'
+//Thanks for using https://jar-download.com
+    testImplementation 'io.projectreactor:reactor-test'
+// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+    compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testImplementation 'io.projectreactor:reactor-test'
 
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0") {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'

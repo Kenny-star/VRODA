@@ -1,10 +1,8 @@
 package com.kenny.presentationlayer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kenny.domainclientlayer.AuthServiceClient;
 import com.kenny.domainclientlayer.ProductServiceClient;
 import com.kenny.dtos.Product;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +24,6 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 import static org.springframework.http.HttpStatus.UNSUPPORTED_MEDIA_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -40,9 +37,7 @@ class ApiGatewayControllerTests {
 
     @MockBean
     private ProductServiceClient productServiceClient;
-
-    @MockBean
-    private AuthServiceClient authServiceClient;
+    
 
     @Autowired
     private WebTestClient client;
