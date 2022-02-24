@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dokta.oauth2.client-id=$0oa3yile9arnRFp1P5d7 -Dokta.oauth2.client-secret=$qZBZEphfpYqwHjGALzNIzgDxD4GttT-DEldMmQTY -jar microservices/product-service/build/libs/*.jar
+web: java -Dserver.port=$PORT -Dokta.oauth2.client-id=$0oa3yssd6s41C9CFa5d7 -Dokta.oauth2.client-secret=$MzW5t9mRWV7GiS_AVjuq1gXO52woKl3BcsR7WcAi -jar microservices/cart-service/build/libs/*.jar
