@@ -1,4 +1,4 @@
-server.port: 70212
+server.port: 7012
 
 server:
   error:
